@@ -809,7 +809,19 @@ public class SchematicPlacementManager
                     GuiConfirmAction screen = new GuiConfirmAction(320, "Confirm paste to command files", cl, null, "Are you sure you want to paste the current placement as setblock commands into command/mcfunction files?");
                     GuiBase.openGui(screen);
                 }
-                else if (mc.isIntegratedServerRunning() == false || Configs.Generic.PASTE_USING_COMMANDS_IN_SP.getBooleanValue())
+                else if (Configs.Generic.PASTE_USING_COMMANDS_IN_SP.getBooleanValue())
+                {
+                    {
+                        TaskPasteSchematicPerChunkBase task = new TaskPasteSchematicPerChunkCommand(Collections.singletonList(schematicPlacement), range, changedBlocksOnly);
+                        TaskScheduler.getInstanceClient().scheduleTask(task, Configs.Generic.COMMAND_TASK_INTERVAL.getIntegerValue());
+
+                        if (printMessage)
+                        {
+                            InfoUtils.showGuiOrActionBarMessage(MessageType.INFO, "litematica.message.scheduled_task_added");
+                        }
+                    }
+                }
+                else if (mc.isIntegratedServerRunning() == false)
                 {
                     if (EntitiesDataStorage.getInstance().hasServuxServer() &&
                         Configs.Generic.PASTE_USING_SERVUX.getBooleanValue())
