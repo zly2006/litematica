@@ -811,14 +811,12 @@ public class SchematicPlacementManager
                 }
                 else if (Configs.Generic.PASTE_USING_COMMANDS_IN_SP.getBooleanValue())
                 {
-                    {
-                        TaskPasteSchematicPerChunkBase task = new TaskPasteSchematicPerChunkCommand(Collections.singletonList(schematicPlacement), range, changedBlocksOnly);
-                        TaskScheduler.getInstanceClient().scheduleTask(task, Configs.Generic.COMMAND_TASK_INTERVAL.getIntegerValue());
+                    TaskPasteSchematicPerChunkBase task = new TaskPasteSchematicPerChunkCommand(Collections.singletonList(schematicPlacement), range, changedBlocksOnly);
+                    TaskScheduler.getInstanceClient().scheduleTask(task, Configs.Generic.COMMAND_TASK_INTERVAL.getIntegerValue());
 
-                        if (printMessage)
-                        {
-                            InfoUtils.showGuiOrActionBarMessage(MessageType.INFO, "litematica.message.scheduled_task_added");
-                        }
+                    if (printMessage)
+                    {
+                        InfoUtils.showGuiOrActionBarMessage(MessageType.INFO, "litematica.message.scheduled_task_added");
                     }
                 }
                 else if (mc.isIntegratedServerRunning() == false)
